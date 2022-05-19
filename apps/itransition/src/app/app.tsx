@@ -1,27 +1,24 @@
+import { Router } from 'express';
 import React, { useEffect, useState } from 'react';
-import { Message } from '@itransition/api-interfaces';
+import Signup from "./registration_form";
+import Login from "./login_form";
+import Profile from "./components/Profile";
+import { Route, Routes } from 'react-router-dom';
+import SearchBar from './components/search';
+import RegistrationForm from './features/registrationForm';
+import LoginForm from './features/loginForm';
 
 export const App = () => {
-  const [m, setMessage] = useState<Message>({ message: '' });
-
-  useEffect(() => {
-    fetch('/api')
-      .then((r) => r.json())
-      .then(setMessage);
-  }, []);
 
   return (
-    <>
-      <div style={{ textAlign: 'center' }}>
-        <h1>Welcome to itransition!</h1>
-        <img
-          width="450"
-          src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-          alt="Nx - Smart, Fast and Extensible Build System"
-        />
-      </div>
-      <div>{m.message}</div>
-    </>
+    <div className="container">
+    <SearchBar />
+    <Routes>
+        <Route path="/login" element={<LoginForm/>} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signup" element={<RegistrationForm />} />
+    </Routes>
+    </div>
   );
 };
 

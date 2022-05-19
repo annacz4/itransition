@@ -1,16 +1,19 @@
-import * as express from 'express';
-import { Message } from '@itransition/api-interfaces';
+const express = require('express');
+const cors = require('cors');
+require('./app/connection');
 
 const app = express();
+app.use(express.json());
+app.use(cors());
 
-const greeting: Message = { message: 'Welcome to api!' };
+app.use(require('./app/register'));
+app.use(require('./app/endpoints/login'));
 
-app.get('/api', (req, res) => {
-  res.send(greeting);
-});
 
 const port = process.env.port || 3333;
 const server = app.listen(port, () => {
-  console.log('Listening at http://localhost:' + port + '/api');
+  console.log('Listening at http://localhost:' + port);
 });
 server.on('error', console.error);
+
+export default app;
