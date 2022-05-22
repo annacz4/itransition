@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
 router.post('/login', async (req, res) => {
   try {
@@ -9,8 +10,8 @@ router.post('/login', async (req, res) => {
 
     if (user) {
         if (user.password === dto.password) {
-            res.status(200);
-            res.send();
+            const token = jwt.sign({ email: user.email }, 'secret', { expiresIn: '3600s'});
+            res.json(token);
         }
     }
   } catch (e) {

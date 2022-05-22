@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
-
+const { collectionSchema } = require('./collection');
 // const schemaImage = mongoose.Schema({
 
 // }
-// )
+//)
 // const schemaCollection = mongoose.Schema({
-//     name: String;
-//     description: String;
-//     topic: String;
-//     image:
+//     name: String,
+//     description: String,
+//     topic: String
+// }) 
 
-// })
-const schemaUser = mongoose.Schema({
+const schemaUser = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
@@ -31,7 +30,10 @@ const schemaUser = mongoose.Schema({
     type: String,
     required: true,
   },
-  // collection: [schemaCollection]
+  collections: [collectionSchema],
 });
 
-module.exports = mongoose.model('User', schemaUser);
+// const Collection = mongoose.model('Collection', schemaCollection);
+const User = mongoose.model('User', schemaUser);
+
+module.exports = User;

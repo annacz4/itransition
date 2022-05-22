@@ -24,11 +24,14 @@ export default function LoginForm() {
         onSubmit={async (values) => {
           const response = await fetch('http://localhost:3333/login', {
             method: 'POST',
+            // mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(values),
           });
 
           if (response.ok) {
+            const token = await response.json();
+            localStorage.setItem('token', token);
             navigate('/profile');
           }
         }}
